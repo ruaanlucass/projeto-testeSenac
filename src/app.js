@@ -1,16 +1,21 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json())
+
 const index = require('./routes/index');
-const musica = require('./require/musicaroute');
+const musicas = require('./routes/musicasRoutes');
 
-app.use((res, res, next) => {
-    console.log('Nova requisicao realizada');
-
+app.use(function (req, res, next) {
+    res.header("Acess-Control-Allow-Origin", "*")
+    res.header(
+        "Acess-Control-Allow-Headers",
+        "origin, X-Requested-With, Content-Type, Accept"
+    )
     next()
 });
 
-app.use('/', index);
-app.use('/musica', musica);
+app.use("/", index);
+app.use("/musicas", musicas);
 
 module.exports = app;
