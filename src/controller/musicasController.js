@@ -20,7 +20,29 @@ const createMusicas = (req, res) => {
     })
 }
 
+const getMusicas = (req, res) => {
+    const musicasId = req.params.id
+    const musicasFound = musicas.find((musicas) => musicas.id == musicasId)
+    if (musicasFound) {
+        res.status(200).send(musicasFound)
+    } else {
+        res.status(404).send({ message: "Musica não encontrada" })
+    }
+}
+
+const getMusicasByLaunchYear = (req, res) => {
+    const musicasLaunchYear = req.params.launchYear
+    const musicasFound = musicas.find((musicas) => musicas.launchYear == musicasLaunchYear)
+    if (musicasFound) {
+        res.status(200).send(musicasFound)
+    } else {
+        res.status(404).send({ message: "Musica não encontrada" })
+    }
+}
+
 module.exports = {
+    getMusicas,
     createMusicas,
     getAllMusicas,
+    getMusicasByLaunchYear,
 }
